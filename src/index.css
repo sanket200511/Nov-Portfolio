@@ -1,0 +1,246 @@
+:root {
+  color: #f4efe6;
+  background: #0c0b09;
+  font-family: Outfit, "Segoe UI", sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  margin: 0;
+  min-height: 100%;
+  background: #0c0b09;
+}
+
+button, a { font: inherit; color: inherit; }
+
+button {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.stage { position: fixed; inset: 0; }
+
+.canvas-wrap { position: absolute; inset: 0; }
+
+.canvas-wrap canvas { display: block; width: 100%; height: 100%; }
+
+.grain {
+  pointer-events: none;
+  position: fixed;
+  inset: -20px;
+  z-index: 4;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+.hud, .shelf, .hover-label, .panel, .composer, .share, .fallback, .boot {
+  z-index: 5;
+}
+
+.hud {
+  position: fixed;
+  top: 22px;
+  left: 22px;
+  right: 22px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  pointer-events: none;
+}
+
+.hud a, .hud button, .shelf button, .panel, .composer, .share, .fallback {
+  pointer-events: auto;
+}
+
+.mark {
+  margin: 0;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: 28px;
+  letter-spacing: -0.03em;
+}
+
+.quiet, .kicker, .meta {
+  margin: 0;
+  color: #b7b0a4;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.hud-actions, .shelf-row, .composer-actions, .plain-links, .pager {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.hud-actions a, .hud-actions button, .shelf button, .pager button, .text-button {
+  border: 1px solid rgba(244, 239, 230, 0.18);
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: rgba(12, 11, 9, 0.55);
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+}
+
+.shelf button.on { border-color: #ffb36b; color: #ffb36b; }
+
+.hover-label {
+  position: fixed;
+  left: 22px;
+  bottom: 28px;
+  min-height: 1.2em;
+  font-family: "Instrument Serif", Georgia, serif;
+  font-style: italic;
+  font-size: 22px;
+}
+
+.shelf {
+  position: fixed;
+  left: 22px;
+  right: 22px;
+  bottom: 18px;
+}
+
+.shelf-row { margin-top: 8px; }
+
+.panel, .composer, .share, .fallback {
+  position: fixed;
+  top: 86px;
+  right: 22px;
+  width: min(420px, calc(100vw - 32px));
+  max-height: calc(100vh - 180px);
+  overflow: auto;
+  padding: 22px;
+  border-radius: 18px;
+  border: 1px solid rgba(244, 239, 230, 0.14);
+  background: rgba(12, 11, 9, 0.82);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 20px 80px rgba(0, 0, 0, 0.35);
+}
+
+.panel-head, .composer-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.panel h2, .plain h1, .fallback h1 {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+}
+
+.panel h2 { margin: 10px 0 14px; font-size: 40px; }
+
+.panel h3, .plain h3 { margin: 0 0 6px; font-size: 18px; font-weight: 500; }
+
+.lead { font-size: 17px; }
+
+.action {
+  display: inline-flex;
+  margin-top: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: #f4efe6;
+  color: #1a140f;
+  text-decoration: none;
+}
+
+.links, .skills, .marks, .timeline {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0 0;
+}
+
+.links a, .plain a { color: #ffb36b; }
+
+.skills li, .timeline li, .block { margin: 0 0 16px; }
+
+.skills strong { display: block; font-weight: 500; }
+
+.skills span, .marks li { color: #d9d0c4; }
+
+.boot {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #070605;
+  transition: opacity 1s ease;
+}
+
+.boot p, .boot {
+  font-family: "Instrument Serif", Georgia, serif;
+  font-size: clamp(32px, 6vw, 68px);
+  text-align: center;
+  padding: 24px;
+}
+
+.boot.out { opacity: 0; pointer-events: none; }
+
+.composer textarea {
+  width: 100%;
+  min-height: 110px;
+  margin: 12px 0;
+  padding: 12px;
+  resize: vertical;
+  border-radius: 12px;
+  border: 1px solid rgba(244, 239, 230, 0.2);
+  background: #16130f;
+  color: #f4efe6;
+  font: inherit;
+}
+
+.share img { width: 100%; border-radius: 12px; }
+
+.plain {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 64px 22px 96px;
+}
+
+.plain h1 { font-size: clamp(64px, 10vw, 112px); margin: 8px 0 12px; }
+
+.plain h2 {
+  margin: 42px 0 16px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ffb36b;
+}
+
+.plain-hero .lead { font-size: 20px; max-width: 62ch; }
+
+.plain-links { margin-top: 18px; }
+
+@media (max-width: 800px) {
+  .panel, .composer, .share {
+    top: auto;
+    left: 12px;
+    right: 12px;
+    bottom: 18px;
+    width: auto;
+    max-height: 46vh;
+  }
+
+  .hover-label { display: none; }
+
+  .mark { font-size: 22px; }
+}
+
+@media print {
+  body { background: white; color: black; }
+  .plain a { color: black; }
+}
